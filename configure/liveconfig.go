@@ -94,7 +94,7 @@ func init() {
 	Config.MergeConfigMap(viper.AllSettings())
 
 	// Flags
-	pflag.String("rtmp_addr", ":8456", "RTMP server listen address")
+	pflag.String("rtmp_addr", ":8144", "RTMP server listen address")
 	pflag.String("httpflv_addr", ":7001", "HTTP-FLV server listen address")
 	pflag.String("hls_addr", ":7002", "HLS server listen address")
 	pflag.String("api_addr", ":8090", "HTTP manage interface server listen address")
