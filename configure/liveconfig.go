@@ -58,7 +58,7 @@ type ServerCfg struct {
 // default config
 var defaultConf = ServerCfg{
 	ConfigFile:      "livego.yaml",
-	RTMPAddr:        ":1935",
+	RTMPAddr:        ":8144",
 	HTTPFLVAddr:     ":7001",
 	HLSAddr:         ":7002",
 	HLSKeepAfterEnd: false,
