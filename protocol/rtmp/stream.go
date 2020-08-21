@@ -17,16 +17,30 @@ var (
 	EmptyID = ""
 )
 
+// RtmpStream 成员stream 并发安全的map
 type RtmpStream struct {
 	streams cmap.ConcurrentMap //key
 }
 
+// NewRtmpStream 新建rtmp流
 func NewRtmpStream() *RtmpStream {
 	ret := &RtmpStream{
 		streams: cmap.New(),
 	}
 	go ret.CheckAlive()
 	return ret
+}
+
+func (rs *RtmpStream) CheckAlive() {
+	for {
+		<-time.After(5 * time.Second)
+		for item := range rs.streams.IterBuffered() {
+			v := item.Val.(*Stream)
+			if v.CheckAlive() == 0 {
+				rs.streams.Remove(item.Key)
+			}
+		}
+	}
 }
 
 func (rs *RtmpStream) HandleReader(r av.ReadCloser) {
@@ -74,18 +88,6 @@ func (rs *RtmpStream) HandleWriter(w av.WriteCloser) {
 
 func (rs *RtmpStream) GetStreams() cmap.ConcurrentMap {
 	return rs.streams
-}
-
-func (rs *RtmpStream) CheckAlive() {
-	for {
-		<-time.After(5 * time.Second)
-		for item := range rs.streams.IterBuffered() {
-			v := item.Val.(*Stream)
-			if v.CheckAlive() == 0 {
-				rs.streams.Remove(item.Key)
-			}
-		}
-	}
 }
 
 type Stream struct {
