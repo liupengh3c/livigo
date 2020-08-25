@@ -18,6 +18,7 @@ var (
 )
 
 var (
+	// ErrReq 错误
 	ErrReq = fmt.Errorf("req error")
 )
 
@@ -32,6 +33,7 @@ var (
 	cmdPlay          = "play"
 )
 
+// ConnectInfo 连接info
 type ConnectInfo struct {
 	App            string `amf:"app" json:"app"`
 	Flashver       string `amf:"flashVer" json:"flashVer"`

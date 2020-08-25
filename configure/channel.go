@@ -87,6 +87,7 @@ func (r *RoomKeysType) GetKey(channel string) (newKey string, err error) {
 	if key, found = r.localCache.Get(channel); found {
 		return key.(string), nil
 	}
+	fmt.Println(channel)
 	newKey, err = r.SetKey(channel)
 	log.Debugf("[KEY] new channel [%s]: %s", channel, newKey)
 	return

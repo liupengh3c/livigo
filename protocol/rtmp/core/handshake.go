@@ -97,6 +97,7 @@ func hsCreate2(p []byte, key []byte) {
 	copy(p[gap:], digest)
 }
 
+// HandshakeClient 客户端握手
 func (conn *Conn) HandshakeClient() (err error) {
 	var random [(1 + 1536*2) * 2]byte
 
